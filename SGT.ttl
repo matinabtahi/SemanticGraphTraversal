@@ -1,0 +1,20 @@
+@prefix sgt: <https://matinabtahi.github.io/SemanticGraphTraversal/SGT#> .
+@prefix rc: <https://matinabtahi.github.io/OperationalDigitalTwinning/RCOnt#> .
+@prefix gm: <https://matinabtahi.github.io/Generational-MemoryOntology/GMOnt#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<https://matinabtahi.github.io/SemanticGraphTraversal/SGT> a owl:Ontology ;
+    dcterms:title "Semantic Graph Traversal integration vocabulary"@en ;
+    dcterms:creator <https://orcid.org/0000-0003-3941-9485> ;
+    dcterms:license <https://opensource.org/license/mit> ;
+    owl:versionInfo "0.1.0" ;
+    rdfs:comment "Application bridge between archival records and thermal model versions; existing RCOnt and GMOnt terms retain their meanings."@en .
+sgt:documentsModelVersion a owl:ObjectProperty ;
+    rdfs:domain gm:ArchivalRecord ; rdfs:range rc:ModelVersion ;
+    rdfs:label "documents model version"@en .
+sgt:hasModelSnapshot a owl:ObjectProperty ;
+    rdfs:domain rc:ModelVersion ; rdfs:range rc:RCModel ;
+    rdfs:label "has model snapshot"@en ;
+    rdfs:comment "Links a version to a distinct RCModel resource containing that version's structure and parameters. A snapshot is kept separate from the persistent model identity."@en .

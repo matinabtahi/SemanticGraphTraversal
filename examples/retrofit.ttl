@@ -1,0 +1,42 @@
+@prefix ex: <https://example.org/sgt-demo#> .
+@prefix rc: <https://matinabtahi.github.io/OperationalDigitalTwinning/RCOnt#> .
+@prefix gm: <https://matinabtahi.github.io/Generational-MemoryOntology/GMOnt#> .
+@prefix sgt: <https://matinabtahi.github.io/SemanticGraphTraversal/SGT#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:ZoneA a brick:HVAC_Zone, gm:Object ; gm:name "Example residential thermal zone" .
+ex:Model a rc:RCModel ; rc:modelsZone ex:ZoneA ; rc:hasNode ex:Indoor ;
+    rc:hasModelVersion ex:BeforeVersion, ex:AfterVersion .
+ex:BeforeVersion a rc:ModelVersion ; rc:versionOfModel ex:Model ; sgt:hasModelSnapshot ex:BeforeModel .
+ex:AfterVersion a rc:ModelVersion ; rc:versionOfModel ex:Model ; sgt:hasModelSnapshot ex:AfterModel ; prov:wasRevisionOf ex:BeforeVersion .
+ex:Indoor a rc:AirNode .
+ex:Outdoor a rc:BoundaryNode .
+ex:BeforeModel a rc:RCModel ; rdfs:label "Pre-retrofit thermal model" ;
+    rc:modelsZone ex:ZoneA ; rc:hasNode ex:Indoor, ex:Outdoor ;
+    rc:hasResistance ex:RBefore ; rc:hasCapacitance ex:CBefore .
+ex:AfterModel a rc:RCModel ; rdfs:label "Post-retrofit thermal model" ;
+    rc:modelsZone ex:ZoneA ; rc:hasNode ex:Indoor, ex:Outdoor ;
+    rc:hasResistance ex:RAfter ; rc:hasCapacitance ex:CAfter .
+ex:RBefore a rc:ThermalResistance ; rdfs:label "Envelope thermal resistance before retrofit" ;
+    rc:numericValue "0.0075"^^xsd:decimal ; rc:unit unit:K-PER-W ;
+    rc:connectsFrom ex:Indoor ; rc:connectsTo ex:Outdoor .
+ex:RAfter a rc:ThermalResistance ; rdfs:label "Envelope thermal resistance after insulation retrofit" ;
+    rc:numericValue "0.0120"^^xsd:decimal ; rc:unit unit:K-PER-W ;
+    rc:connectsFrom ex:Indoor ; rc:connectsTo ex:Outdoor .
+ex:CBefore a rc:ThermalCapacitance ; rc:belongsToNode ex:Indoor ;
+    rc:numericValue "15000000"^^xsd:decimal ; rc:unit unit:J-PER-K .
+ex:CAfter a rc:ThermalCapacitance ; rc:belongsToNode ex:Indoor ;
+    rc:numericValue "15000000"^^xsd:decimal ; rc:unit unit:J-PER-K .
+ex:BeforeRecord a gm:ArchivalRecord ; gm:aboutObject ex:ZoneA ;
+    gm:title "Baseline calibration" ; gm:recordDate "2024-01-10"^^xsd:date ;
+    gm:hasMedia ex:BeforeFile ; sgt:documentsModelVersion ex:BeforeVersion .
+ex:AfterRecord a gm:ArchivalRecord ; gm:aboutObject ex:ZoneA ;
+    gm:title "Insulation retrofit calibration" ; gm:recordDate "2025-01-10"^^xsd:date ;
+    gm:previousRecord ex:BeforeRecord ; gm:sameSubjectAs ex:BeforeRecord ;
+    gm:hasMedia ex:AfterFile ; sgt:documentsModelVersion ex:AfterVersion .
+ex:BeforeFile a gm:MediaObject ; gm:fileURI "https://example.org/before.csv"^^xsd:anyURI ; gm:mediaType "text/csv" .
+ex:AfterFile a gm:MediaObject ; gm:fileURI "https://example.org/after.csv"^^xsd:anyURI ; gm:mediaType "text/csv" .

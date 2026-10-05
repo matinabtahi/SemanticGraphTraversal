@@ -1,0 +1,20 @@
+@prefix sgt: <https://matinabtahi.github.io/SemanticGraphTraversal/SGT#> .
+@prefix rc: <https://matinabtahi.github.io/OperationalDigitalTwinning/RCOnt#> .
+@prefix gm: <https://matinabtahi.github.io/Generational-MemoryOntology/GMOnt#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+sgt:RecordBridgeShape a sh:NodeShape ; sh:targetSubjectsOf sgt:documentsModelVersion ;
+    sh:class gm:ArchivalRecord ;
+    sh:property [ sh:path sgt:documentsModelVersion ; sh:class rc:ModelVersion ; sh:minCount 1 ] .
+sgt:SnapshotShape a sh:NodeShape ; sh:targetObjectsOf sgt:documentsModelVersion ;
+    sh:property [ sh:path sgt:hasModelSnapshot ; sh:class rc:RCModel ; sh:minCount 1 ; sh:maxCount 1 ] .
+sgt:ResistanceShape a sh:NodeShape ; sh:targetClass rc:ThermalResistance ;
+    sh:property [ sh:path rc:connectsFrom ; sh:class rc:Node ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path rc:connectsTo ; sh:class rc:Node ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path rc:numericValue ; sh:datatype xsd:decimal ; sh:minExclusive 0 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path rc:unit ; sh:nodeKind sh:IRI ; sh:minCount 1 ; sh:maxCount 1 ] .
+sgt:CapacitanceShape a sh:NodeShape ; sh:targetClass rc:ThermalCapacitance ;
+    sh:property [ sh:path rc:belongsToNode ; sh:class rc:Node ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path rc:numericValue ; sh:datatype xsd:decimal ; sh:minExclusive 0 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path rc:unit ; sh:nodeKind sh:IRI ; sh:minCount 1 ; sh:maxCount 1 ] .

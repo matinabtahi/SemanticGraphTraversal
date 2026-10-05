@@ -1,0 +1,12 @@
+PREFIX gm: <https://matinabtahi.github.io/Generational-MemoryOntology/GMOnt#>
+PREFIX rc: <https://matinabtahi.github.io/OperationalDigitalTwinning/RCOnt#>
+PREFIX sgt: <https://matinabtahi.github.io/SemanticGraphTraversal/SGT#>
+SELECT ?entity ?record ?date ?version ?snapshot ?parameter ?value ?unit
+WHERE {
+  ?record (gm:aboutEntity|gm:aboutObject) ?entity ; gm:recordDate ?date ;
+          sgt:documentsModelVersion ?version .
+  ?version sgt:hasModelSnapshot ?snapshot .
+  ?snapshot rc:hasResistance ?parameter .
+  ?parameter rc:numericValue ?value ; rc:unit ?unit .
+}
+ORDER BY ?entity ?date ?parameter

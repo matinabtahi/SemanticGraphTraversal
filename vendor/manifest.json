@@ -1,0 +1,14 @@
+[
+  {
+    "repository": "https://github.com/matinabtahi/Resistance-CapacitanceOntology",
+    "commit": "92ce42e3e43e02dd7c07d18f7e80df7483a10772",
+    "path": "RCOnt.ttl",
+    "sha256": "65ee15be03aa1e72399ee86fdf4a7536e39245d1703a35b127cdf51bb2d99d47"
+  },
+  {
+    "repository": "https://github.com/matinabtahi/Generational-MemoryOntology",
+    "commit": "01bd4f861108a79f90d732fd26695978f12fb7a5",
+    "path": "GMOnt.ttl",
+    "sha256": "3b6b413ebb530ed378b6e1205c1828df8a9feae3e18687800013bbf5c005b285"
+  }
+]

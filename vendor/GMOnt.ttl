@@ -1,0 +1,82 @@
+@prefix : <https://matinabtahi.github.io/Generational-MemoryOntology/GMOnt#> .
+@prefix gmont: <https://matinabtahi.github.io/Generational-MemoryOntology/GMOnt#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix schema: <https://schema.org/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<https://matinabtahi.github.io/Generational-MemoryOntology/GMOnt>
+    a owl:Ontology ;
+    dcterms:title "Generational Memory Ontology (GMOnt)"@en ;
+    dcterms:creator <https://orcid.org/0000-0003-3941-9485> ;
+    dcterms:license <https://opensource.org/license/mit> ;
+    dcterms:source <https://github.com/matinabtahi/Generational-MemoryOntology> ;
+    dcterms:modified "2026-09-06"^^xsd:date ;
+    rdfs:label "Generational Memory Ontology (GMOnt)"@en ;
+    rdfs:comment "A lightweight OWL ontology for longitudinal multimodal archives: linking records, persistent entities, events and media across time, generations, lifecycle stages, versions and formats without assuming a specific application domain."@en ;
+    owl:versionIRI <https://matinabtahi.github.io/Generational-MemoryOntology/GMOnt/1.0.0> ;
+    owl:versionInfo "1.0.0" ;
+    rdfs:seeAlso <https://github.com/matinabtahi/Generational-MemoryOntology> .
+
+gmont:Entity a owl:Class ; rdfs:label "entity"@en ; rdfs:comment "Anything that archival records may describe or track through time."@en .
+gmont:Agent a owl:Class ; rdfs:subClassOf gmont:Entity ; rdfs:label "agent"@en .
+gmont:Person a owl:Class ; rdfs:subClassOf gmont:Agent, schema:Person ; rdfs:label "person"@en .
+gmont:Organization a owl:Class ; rdfs:subClassOf gmont:Agent, schema:Organization ; rdfs:label "organization"@en .
+gmont:Place a owl:Class ; rdfs:subClassOf gmont:Entity, schema:Place ; rdfs:label "place"@en .
+gmont:Object a owl:Class ; rdfs:subClassOf gmont:Entity ; rdfs:label "object"@en ; rdfs:comment "A persistent physical or conceptual object tracked through an archive, such as an artefact, asset, component, document set or building."@en .
+gmont:Event a owl:Class ; rdfs:subClassOf gmont:Entity, schema:Event ; rdfs:label "event"@en .
+gmont:Generation a owl:Class ; rdfs:subClassOf gmont:Entity ; rdfs:label "generation"@en ; rdfs:comment "A cohort, stage, edition or lifecycle phase used to group related entities or records across a temporal sequence."@en .
+gmont:ArchivalRecord a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "archival record"@en ; rdfs:comment "A record that captures information about one or more entities at a point or interval in time."@en .
+gmont:Memory a owl:Class ; rdfs:subClassOf gmont:ArchivalRecord ; rdfs:label "memory"@en ; rdfs:comment "A human-centred archival record describing an experience, recollection or account."@en .
+gmont:MediaObject a owl:Class ; rdfs:subClassOf prov:Entity, schema:MediaObject ; rdfs:label "media object"@en ; rdfs:comment "A digital representation associated with an archival record, such as text, image, audio, video, scan, model or dataset."@en .
+gmont:Relationship a owl:Class ; rdfs:label "relationship"@en ; rdfs:comment "A reified relationship between two or more agents, optionally qualified by roles and dates."@en .
+gmont:Role a owl:Class ; rdfs:subClassOf skos:Concept ; rdfs:label "role"@en .
+
+gmont:aboutEntity a owl:ObjectProperty ; rdfs:domain gmont:ArchivalRecord ; rdfs:range gmont:Entity ; rdfs:label "about entity"@en .
+gmont:aboutPerson a owl:ObjectProperty ; rdfs:subPropertyOf gmont:aboutEntity ; rdfs:domain gmont:ArchivalRecord ; rdfs:range gmont:Person ; rdfs:label "about person"@en .
+gmont:aboutOrganization a owl:ObjectProperty ; rdfs:subPropertyOf gmont:aboutEntity ; rdfs:domain gmont:ArchivalRecord ; rdfs:range gmont:Organization ; rdfs:label "about organization"@en .
+gmont:aboutPlace a owl:ObjectProperty ; rdfs:subPropertyOf gmont:aboutEntity ; rdfs:domain gmont:ArchivalRecord ; rdfs:range gmont:Place ; rdfs:label "about place"@en .
+gmont:aboutObject a owl:ObjectProperty ; rdfs:subPropertyOf gmont:aboutEntity ; rdfs:domain gmont:ArchivalRecord ; rdfs:range gmont:Object ; rdfs:label "about object"@en .
+gmont:aboutEvent a owl:ObjectProperty ; rdfs:subPropertyOf gmont:aboutEntity ; rdfs:domain gmont:ArchivalRecord ; rdfs:range gmont:Event ; rdfs:label "about event"@en .
+gmont:recordedBy a owl:ObjectProperty ; rdfs:domain gmont:ArchivalRecord ; rdfs:range gmont:Agent ; rdfs:label "recorded by"@en .
+gmont:hasMedia a owl:ObjectProperty ; rdfs:domain gmont:ArchivalRecord ; rdfs:range gmont:MediaObject ; rdfs:label "has media"@en .
+gmont:representsRecord a owl:ObjectProperty ; owl:inverseOf gmont:hasMedia ; rdfs:domain gmont:MediaObject ; rdfs:range gmont:ArchivalRecord ; rdfs:label "represents record"@en .
+gmont:previousRecord a owl:ObjectProperty ; rdfs:domain gmont:ArchivalRecord ; rdfs:range gmont:ArchivalRecord ; rdfs:label "previous record"@en ; rdfs:comment "Links a record to an earlier record in the same longitudinal thread."@en .
+gmont:nextRecord a owl:ObjectProperty ; owl:inverseOf gmont:previousRecord ; rdfs:domain gmont:ArchivalRecord ; rdfs:range gmont:ArchivalRecord ; rdfs:label "next record"@en .
+gmont:relatedRecord a owl:ObjectProperty, owl:SymmetricProperty ; rdfs:domain gmont:ArchivalRecord ; rdfs:range gmont:ArchivalRecord ; rdfs:label "related record"@en .
+gmont:sameSubjectAs a owl:ObjectProperty, owl:SymmetricProperty ; rdfs:domain gmont:ArchivalRecord ; rdfs:range gmont:ArchivalRecord ; rdfs:label "same subject as"@en ; rdfs:comment "Indicates records that document the same persistent subject at different times or in different formats."@en .
+gmont:derivedFrom a owl:ObjectProperty ; rdfs:subPropertyOf prov:wasDerivedFrom ; rdfs:domain gmont:MediaObject ; rdfs:range gmont:MediaObject ; rdfs:label "derived from"@en .
+gmont:belongsToGeneration a owl:ObjectProperty ; rdfs:domain gmont:ArchivalRecord ; rdfs:range gmont:Generation ; rdfs:label "belongs to generation"@en .
+gmont:includesEntity a owl:ObjectProperty ; rdfs:domain gmont:Generation ; rdfs:range gmont:Entity ; rdfs:label "includes entity"@en .
+gmont:memberOfGeneration a owl:ObjectProperty ; owl:inverseOf gmont:includesEntity ; rdfs:domain gmont:Entity ; rdfs:range gmont:Generation ; rdfs:label "member of generation"@en .
+gmont:followsGeneration a owl:ObjectProperty ; rdfs:domain gmont:Generation ; rdfs:range gmont:Generation ; rdfs:label "follows generation"@en .
+gmont:parentOf a owl:ObjectProperty ; owl:inverseOf gmont:childOf ; rdfs:domain gmont:Person ; rdfs:range gmont:Person ; rdfs:label "parent of"@en .
+gmont:childOf a owl:ObjectProperty ; rdfs:domain gmont:Person ; rdfs:range gmont:Person ; rdfs:label "child of"@en .
+gmont:siblingOf a owl:ObjectProperty, owl:SymmetricProperty ; rdfs:domain gmont:Person ; rdfs:range gmont:Person ; rdfs:label "sibling of"@en .
+gmont:spouseOf a owl:ObjectProperty, owl:SymmetricProperty ; rdfs:domain gmont:Person ; rdfs:range gmont:Person ; rdfs:label "spouse of"@en .
+gmont:ancestorOf a owl:ObjectProperty, owl:TransitiveProperty ; owl:inverseOf gmont:descendantOf ; rdfs:domain gmont:Person ; rdfs:range gmont:Person ; rdfs:label "ancestor of"@en .
+gmont:descendantOf a owl:ObjectProperty, owl:TransitiveProperty ; rdfs:domain gmont:Person ; rdfs:range gmont:Person ; rdfs:label "descendant of"@en .
+gmont:hasRelationship a owl:ObjectProperty ; rdfs:domain gmont:Agent ; rdfs:range gmont:Relationship ; rdfs:label "has relationship"@en .
+gmont:hasParticipant a owl:ObjectProperty ; rdfs:domain gmont:Relationship ; rdfs:range gmont:Agent ; rdfs:label "has participant"@en .
+gmont:relationshipType a owl:ObjectProperty ; rdfs:domain gmont:Relationship ; rdfs:range gmont:Role ; rdfs:label "relationship type"@en .
+gmont:participantRole a owl:ObjectProperty ; rdfs:domain gmont:Relationship ; rdfs:range gmont:Role ; rdfs:label "participant role"@en .
+gmont:name a owl:DatatypeProperty ; rdfs:domain gmont:Entity ; rdfs:range xsd:string ; rdfs:label "name"@en .
+gmont:title a owl:DatatypeProperty ; rdfs:domain gmont:ArchivalRecord ; rdfs:range xsd:string ; rdfs:label "title"@en .
+gmont:contentText a owl:DatatypeProperty ; rdfs:domain gmont:ArchivalRecord ; rdfs:range xsd:string ; rdfs:label "content text"@en .
+gmont:recordDate a owl:DatatypeProperty ; rdfs:domain gmont:ArchivalRecord ; rdfs:range xsd:date ; rdfs:label "record date"@en .
+gmont:dateRecorded a owl:DatatypeProperty ; rdfs:subPropertyOf gmont:recordDate ; rdfs:domain gmont:Memory ; rdfs:range xsd:date ; rdfs:label "date recorded"@en .
+gmont:eventDate a owl:DatatypeProperty ; rdfs:domain gmont:Event ; rdfs:range xsd:date ; rdfs:label "event date"@en .
+gmont:birthDate a owl:DatatypeProperty ; rdfs:domain gmont:Person ; rdfs:range xsd:date ; rdfs:label "birth date"@en .
+gmont:deathDate a owl:DatatypeProperty ; rdfs:domain gmont:Person ; rdfs:range xsd:date ; rdfs:label "death date"@en .
+gmont:fileURI a owl:DatatypeProperty ; rdfs:domain gmont:MediaObject ; rdfs:range xsd:anyURI ; rdfs:label "file URI"@en ; rdfs:comment "URI identifying or locating the media representation."@en .
+gmont:mediaType a owl:DatatypeProperty ; rdfs:domain gmont:MediaObject ; rdfs:range xsd:string ; rdfs:label "media type"@en ; rdfs:comment "MIME type or another explicit media-format identifier."@en .
+gmont:formatLabel a owl:DatatypeProperty ; rdfs:domain gmont:MediaObject ; rdfs:range xsd:string ; rdfs:label "format label"@en .
+gmont:identifier a owl:DatatypeProperty ; rdfs:domain [ a owl:Class ; owl:unionOf ( gmont:Entity gmont:ArchivalRecord gmont:MediaObject ) ] ; rdfs:range xsd:string ; rdfs:label "identifier"@en .
+gmont:source a owl:DatatypeProperty ; rdfs:domain gmont:ArchivalRecord ; rdfs:range xsd:anyURI ; rdfs:label "source"@en .
+gmont:confidence a owl:DatatypeProperty ; rdfs:domain gmont:ArchivalRecord ; rdfs:range xsd:decimal ; rdfs:label "confidence"@en .
+gmont:relationshipStart a owl:DatatypeProperty ; rdfs:domain gmont:Relationship ; rdfs:range xsd:date ; rdfs:label "relationship start"@en .
+gmont:relationshipEnd a owl:DatatypeProperty ; rdfs:domain gmont:Relationship ; rdfs:range xsd:date ; rdfs:label "relationship end"@en .
+

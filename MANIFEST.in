@@ -1,0 +1,6 @@
+include SGT.ttl CITATION.cff CHANGELOG.md requirements.txt
+recursive-include docs *.md
+recursive-include examples *.ttl *.md
+recursive-include queries *.rq *.md
+recursive-include shapes *.ttl
+recursive-include vendor *.ttl *.json *.md LICENSE
