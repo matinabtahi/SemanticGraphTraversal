@@ -2,6 +2,7 @@
 
 [![Validation](https://github.com/matinabtahi/SemanticGraphTraversal/actions/workflows/validate.yml/badge.svg)](https://github.com/matinabtahi/SemanticGraphTraversal/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23173062.svg)](https://doi.org/10.5281/zenodo.23173062)
 [![Version](https://img.shields.io/badge/version-v0.1.0-blue.svg)](CHANGELOG.md)
 
 **SGT** is a Python toolkit for traversing and analysing RDF graphs with traceable
@@ -172,9 +173,12 @@ algorithm. No code was copied from that project. See [NOTICE.md](NOTICE.md).
 
 ## Citation
 
-[CITATION.cff](CITATION.cff) and [.zenodo.json](.zenodo.json) follow the companion
-repositories' conventions. Cite the version or commit until a release is archived;
-no DOI is claimed for this initial version.
+Abtahi, M. (2026). *Semantic Graph Traversal (SGT)* (Version 0.1.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.23173063
+
+- **Version 0.1.0:** [10.5281/zenodo.23173063](https://doi.org/10.5281/zenodo.23173063) — cite this archived version for reproducibility.
+- **All versions:** [10.5281/zenodo.23173062](https://doi.org/10.5281/zenodo.23173062) — identifies the software across releases.
+
+Machine-readable citation metadata is available in [CITATION.cff](CITATION.cff). Future Zenodo release metadata is maintained in [.zenodo.json](.zenodo.json).
 
 ## Contributing
 

@@ -1,8 +1,9 @@
 cff-version: 1.2.0
-message: "If you use this software, cite the repository and exact version or commit."
+message: "If you use this software, cite the archived version using its DOI."
 title: "Semantic Graph Traversal (SGT)"
 type: software
 version: "0.1.0"
+doi: "10.5281/zenodo.23173063"
 authors:
   - family-names: Abtahi
     given-names: Matin
